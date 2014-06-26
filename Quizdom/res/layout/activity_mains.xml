@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/quizdomnew" >
+
+    <ImageButton
+        android:id="@+id/buttonSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonSignIn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="71dp"
+        android:background="#00000000"
+        android:src="@drawable/signbutton" />
+
+    <ImageButton
+        android:id="@+id/buttonSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSignUp"
+        android:layout_centerHorizontal="true"
+        android:background="#00000000"
+        android:src="@drawable/logbutton" />
+
+</RelativeLayout>
