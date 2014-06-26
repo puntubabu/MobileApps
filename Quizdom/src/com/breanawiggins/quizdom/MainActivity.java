@@ -21,7 +21,7 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_mains);
 
-        /*
+        /*hello
          * if (savedInstanceState == null) {
          * this.getSupportFragmentManager().beginTransaction()
          * .add(R.id.container, new PlaceholderFragment()).commit(); }
