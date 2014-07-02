@@ -1,20 +1,39 @@
 package com.breanawiggins.quizdom;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class SignUp extends Activity implements OnClickListener {
-    private EditText etUsername;
-    private EditText etPassword;
-    private EditText etConfirm;
-    private DatabaseHelper dh;
+    private EditText etUsername,etPassword,etConfirm;
 
+	 // Progress Dialog
+    private ProgressDialog pDialog;
+
+    // JSON parser class
+    JSONParser jsonParser = new JSONParser();
+    
+  //testing from a real server:
+    private static final String LOGIN_URL = "http://quizdom.comoj.com/register.php";
+
+    //ids
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_MESSAGE = "message";
+
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,46 +47,72 @@ public class SignUp extends Activity implements OnClickListener {
         btnAdd.setOnClickListener(this);
     }
 
-    private void CreateAccount() {
-        // this.output = (TextView) this.findViewById(R.id.out_text);
-        String username = this.etUsername.getText().toString();
-        String password = this.etPassword.getText().toString();
-        String confirm = this.etConfirm.getText().toString();
-        if ((password.equals(confirm)) && (!username.equals(""))
-                && (!password.equals("")) && (!confirm.equals(""))) {
-            this.dh = new DatabaseHelper(this);
-            this.dh.insert(username, password);
-            // this.labResult.setText("Added");
-            Toast.makeText(SignUp.this, "new record inserted",
-                    Toast.LENGTH_SHORT).show();
-            this.finish();
-            // Bring up the Home screen
-            // this.startActivity(new Intent(this, HomeScreen.class));
-        } else if ((username.equals("")) || (password.equals(""))
-                || (confirm.equals(""))) {
-            Toast.makeText(SignUp.this, "Missing entry", Toast.LENGTH_SHORT)
-                    .show();
-        } else if (!password.equals(confirm)) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Error")
-                    .setMessage("passwords do not match")
-                    .setNeutralButton("Try Again",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                        int which) {
-                                }
-                            })
+    	class CreateUser extends AsyncTask<String, String, String> {
 
-                    .show();
-        }
-    }
+   		 /**
+            * Before starting background thread Show Progress Dialog
+            * */
+   		boolean failure = false;
 
+   		@Override
+   		protected String doInBackground(String... args) {
+   			// TODO Auto-generated method stub
+   			 // Check for success tag
+               int success;
+               String username = etUsername.getText().toString();
+               String password = etPassword.getText().toString();
+               String confirmPassword = etConfirm.getText().toString();
+               try {
+                   // Building Parameters
+                   List<NameValuePair> params = new ArrayList<NameValuePair>();
+                   params.add(new BasicNameValuePair("username", username));
+                   params.add(new BasicNameValuePair("password", password));
+
+                   Log.d("request!", "starting");
+
+                   //Posting user data to script
+                   JSONObject json = jsonParser.makeHttpRequest(
+                          LOGIN_URL, "POST", params);
+
+                   // full json response
+                   Log.d("Login attempt", json.toString());
+
+                   // json success element
+                   success = json.getInt(TAG_SUCCESS);
+                   if (success == 1) {
+                   	Log.d("User Created!", json.toString());
+                   	finish();
+                   	return json.getString(TAG_MESSAGE);
+                   }else{
+                   	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
+                   	return json.getString(TAG_MESSAGE);
+
+                   }
+               } catch (JSONException e) {
+                   e.printStackTrace();
+               }
+               return null;
+
+   		}
+   		/**
+            * After completing background task Dismiss the progress dialog
+            * **/
+           protected void onPostExecute(String file_url) {
+               // dismiss the dialog once product deleted
+               //pDialog.dismiss();
+               if (file_url != null){
+               	Toast.makeText(SignUp.this, file_url, Toast.LENGTH_LONG).show();
+               }
+
+           }
+
+   	}
+    	
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.buttonCreate) {
-            this.CreateAccount();
-            this.finish();
+            new CreateUser().execute();
+            //this.finish();
         }
     }
 }

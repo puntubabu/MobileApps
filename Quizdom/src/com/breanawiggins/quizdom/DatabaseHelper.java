@@ -37,6 +37,7 @@ public class DatabaseHelper {
     public void deleteAll() {
 
         this.db.delete(TABLE_NAME, null, null);
+        this.db.delete(TABLE_FRIENDS, null, null);
     }
 
     public List<String> selectAll(String username, String password) {
