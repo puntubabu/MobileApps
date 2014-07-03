@@ -31,9 +31,7 @@
         android:layout_above="@+id/editTextPasswordToLogin"
         android:layout_alignParentLeft="true"
         android:ems="10"
-        android:hint="User Name" >
+        android:hint="User Name" />
 
-        <requestFocus />
-    </EditText>
 
 </RelativeLayout>

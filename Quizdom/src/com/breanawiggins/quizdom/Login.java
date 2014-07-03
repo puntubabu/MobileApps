@@ -1,7 +1,5 @@
 package com.breanawiggins.quizdom;
 
-import java.util.List;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +11,18 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.TextView;
+
 
 public class Login extends Activity implements OnClickListener {
     private EditText userNameEditableField;
@@ -38,6 +40,9 @@ public class Login extends Activity implements OnClickListener {
     //JSON element ids from response of php script:
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
+
+    //Shared Preferences
+    //SharedPreferences sp = getSharedPreferences(MODE_APPEND, Context.MODE_PRIVATE);	
 
     
     @Override
@@ -62,12 +67,12 @@ public class Login extends Activity implements OnClickListener {
 
        @Override
        protected void onPreExecute() {
-           super.onPreExecute();
-           pDialog = new ProgressDialog(Login.this);
-           pDialog.setMessage("Attempting login...");
-           pDialog.setIndeterminate(false);
-           pDialog.setCancelable(true);
-           //pDialog.show();
+//           super.onPreExecute();
+//           pDialog = new ProgressDialog(Login.this);
+//           pDialog.setMessage("Attempting login...");
+//           pDialog.setIndeterminate(false);
+//           pDialog.setCancelable(true);
+//           pDialog.show();
        }
 
 		@Override
@@ -79,7 +84,7 @@ public class Login extends Activity implements OnClickListener {
            String password = passwordEditableField.getText().toString();
            try {
                // Building Parameters
-               List<NameValuePair> params = new ArrayList<NameValuePair>();
+               ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
                params.add(new BasicNameValuePair("username", username));
                params.add(new BasicNameValuePair("password", password));
 
@@ -94,6 +99,10 @@ public class Login extends Activity implements OnClickListener {
                // json success tag
                success = json.getInt(TAG_SUCCESS);
                if (success == 1) {
+            	   SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Login.this);
+            	   Editor edit = sp.edit();
+            	   edit.putString("username", username);
+            	   edit.commit();
                	Log.d("Login Successful!", json.toString());
                	Intent i = new Intent(Login.this, HomeScreen.class);
                	finish();
