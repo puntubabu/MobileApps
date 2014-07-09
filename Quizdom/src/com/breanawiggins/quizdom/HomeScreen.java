@@ -1,22 +1,44 @@
 package com.breanawiggins.quizdom;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class HomeScreen extends ActionBarActivity {
 
     ImageButton btnLogin, btnSignUp;
-
+    TextView tvCurrentUser;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_home);
-
+        tvCurrentUser = (TextView)findViewById(R.id.tvCurrentUser);
+        setCurrentUserText();
     }
 
+    private void setCurrentUserText(){
+    	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
+    	String currentUser = sp.getString("username", "ERROR");
+    	tvCurrentUser.setText(currentUser);
+    }
+    
+    public void onClick(View v){
+    	switch(v.getId()){
+    	case R.id.imFriends:
+           	Intent i = new Intent(HomeScreen.this, FriendsListActivity.class);
+           	finish();
+			startActivity(i);
+			break;
+    	}
+    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

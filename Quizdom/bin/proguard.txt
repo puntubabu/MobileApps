@@ -73,3 +73,6 @@
 # view AndroidManifest.xml #generated:36
 -keep class com.google.android.gcm.GCMBroadcastReceiver { <init>(...); }
 
+# onClick res/layout/activity_home.xml #generated:37
+-keepclassmembers class * { *** onClick(...); }
+
