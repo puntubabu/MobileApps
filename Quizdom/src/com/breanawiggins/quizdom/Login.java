@@ -35,7 +35,7 @@ public class Login extends Activity implements OnClickListener {
     JSONParser jsonParser = new JSONParser();
     
     //testing from a real server:
-    private static final String LOGIN_URL = "http://quizdom.comoj.com/login.php";
+    private static final String LOGIN_URL = "http://pradeepkeshary.com/webservice/login.php";
     
     //JSON element ids from response of php script:
     private static final String TAG_SUCCESS = "success";
@@ -67,12 +67,6 @@ public class Login extends Activity implements OnClickListener {
 
        @Override
        protected void onPreExecute() {
-//           super.onPreExecute();
-//           pDialog = new ProgressDialog(Login.this);
-//           pDialog.setMessage("Attempting login...");
-//           pDialog.setIndeterminate(false);
-//           pDialog.setCancelable(true);
-//           pDialog.show();
        }
 
 		@Override

@@ -255,7 +255,7 @@ int id action_context_bar 0x7f05001d
 int id action_menu_divider 0x7f050016
 int id action_menu_presenter 0x7f050017
 int id action_mode_close_button 0x7f050024
-int id action_settings 0x7f050051
+int id action_settings 0x7f050052
 int id activity_chooser_view_content 0x7f050025
 int id always 0x7f05000b
 int id beginning 0x7f050011
@@ -293,7 +293,7 @@ int id imgLogo 0x7f050050
 int id listMode 0x7f050001
 int id list_item 0x7f050029
 int id loginbutton 0x7f050045
-int id lvFriends 0x7f05003d
+int id lvFriendsList 0x7f05003d
 int id middle 0x7f050012
 int id msgView 0x7f05004a
 int id never 0x7f050009
@@ -303,6 +303,7 @@ int id progress_circular 0x7f050018
 int id progress_horizontal 0x7f050019
 int id radio 0x7f05002f
 int id regButton 0x7f05004b
+int id rowTextView 0x7f050051
 int id search_badge 0x7f050032
 int id search_bar 0x7f050031
 int id search_button 0x7f050033
@@ -361,7 +362,8 @@ int layout activity_signup 0x7f03001e
 int layout activity_splash 0x7f03001f
 int layout fragment_friends_list 0x7f030020
 int layout fragment_main 0x7f030021
-int layout support_simple_spinner_dropdown_item 0x7f030022
+int layout friendrow 0x7f030022
+int layout support_simple_spinner_dropdown_item 0x7f030023
 int menu friends_list 0x7f0c0000
 int menu main 0x7f0c0001
 int string abc_action_bar_home_description 0x7f0a0001
