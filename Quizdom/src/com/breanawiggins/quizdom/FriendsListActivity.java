@@ -98,6 +98,7 @@ public class FriendsListActivity extends ListActivity {
             String strUser = user.get("name");
             String friend = etFriend.getText().toString();
             
+            if (!strUser.equals(friend)){
             try {
                 // Building Parameters
                 ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -126,6 +127,14 @@ public class FriendsListActivity extends ListActivity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+            }
+            else{
+            	runOnUiThread(new Runnable() {
+            		public void run() {
+                    	Toast.makeText(FriendsListActivity.this, "Can't Add Yourself!", Toast.LENGTH_LONG).show();
+            		    }
+            		});
             }
  
             return null;
