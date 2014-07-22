@@ -44,6 +44,9 @@ public class HomeScreen extends ActionBarActivity {
            	finish();
 			startActivity(i);
 			break;
+    	case R.id.btnSignOut:
+    		session.logoutUser();
+    		finish();
     	}
     }
     

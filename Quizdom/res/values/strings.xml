@@ -7,5 +7,7 @@
     <string name="title_activity_friends_list">FriendsListActivity</string>
     <string name="addfriend">Add Friend</string>
     <string name="deleteFriend">Delete Friend</string>
-
+    <string name="signOut">Sign Out</string>
+    <string name="request">!</string>
+        
 </resources>
