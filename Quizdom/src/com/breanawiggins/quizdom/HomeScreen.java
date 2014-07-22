@@ -1,5 +1,7 @@
 package com.breanawiggins.quizdom;
 
+import java.util.HashMap;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,19 +17,24 @@ public class HomeScreen extends ActionBarActivity {
 
     ImageButton btnLogin, btnSignUp;
     TextView tvCurrentUser;
+    public static UserSessionManager session;
+    
+    
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_home);
+        session = new UserSessionManager(getApplicationContext());
         tvCurrentUser = (TextView)findViewById(R.id.tvCurrentUser);
         setCurrentUserText();
     }
 
     private void setCurrentUserText(){
-    	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
-    	String currentUser = sp.getString("username", "ERROR");
-    	tvCurrentUser.setText(currentUser);
+        HashMap<String, String> user = new HashMap<String, String>();
+        user = session.getUserDetails();
+        String strUser = user.get("name");
+    	tvCurrentUser.setText("Logged in as: "+strUser);
     }
     
     public void onClick(View v){

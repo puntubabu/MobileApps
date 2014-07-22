@@ -75,7 +75,7 @@ public class SignUp extends Activity implements OnClickListener {
                           LOGIN_URL, "POST", params);
 
                    // full json response
-                   //Log.d("Login attempt", json.toString());
+                   Log.d("Login attempt", json.toString());
 
                    // json success element
                    success = json.getInt(TAG_SUCCESS);
