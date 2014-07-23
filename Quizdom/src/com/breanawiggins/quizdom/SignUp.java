@@ -27,7 +27,7 @@ public class SignUp extends Activity implements OnClickListener {
     JSONParser jsonParser = new JSONParser();
     
   //testing from a real server:
-    private static final String LOGIN_URL = "http://quizdom.comoj.com/register.php";
+    private static final String LOGIN_URL = "http://pradeepkeshary.com/webservice/register.php";
 
     //ids
     private static final String TAG_SUCCESS = "success";

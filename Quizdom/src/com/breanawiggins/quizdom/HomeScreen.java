@@ -1,13 +1,16 @@
 package com.breanawiggins.quizdom;
 
+import java.util.HashMap;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,19 +18,27 @@ public class HomeScreen extends ActionBarActivity {
 
     ImageButton btnLogin, btnSignUp;
     TextView tvCurrentUser;
+    public static UserSessionManager session;
+    Button requestButton;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_home);
+        session = new UserSessionManager(getApplicationContext());
         tvCurrentUser = (TextView)findViewById(R.id.tvCurrentUser);
         setCurrentUserText();
+        final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
+        requestButton = (Button) findViewById(R.id.btnRequest);
+        requestButton.startAnimation(animScale);
+        
     }
-
+    
     private void setCurrentUserText(){
-    	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
-    	String currentUser = sp.getString("username", "ERROR");
-    	tvCurrentUser.setText(currentUser);
+        HashMap<String, String> user = new HashMap<String, String>();
+        user = session.getUserDetails();
+        String strUser = user.get("name");
+    	tvCurrentUser.setText("Logged in as: "+strUser);
     }
     
     public void onClick(View v){
@@ -37,6 +48,9 @@ public class HomeScreen extends ActionBarActivity {
            	finish();
 			startActivity(i);
 			break;
+    	case R.id.btnSignOut:
+    		session.logoutUser();
+    		finish();
     	}
     }
     

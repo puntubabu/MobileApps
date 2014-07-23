@@ -54,4 +54,24 @@
         android:layout_marginBottom="33dp" 
         />
 
+    <Button
+        android:id="@+id/btnSignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageButton3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:text="@string/signOut" 
+        android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/btnRequest"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/imFriends"
+        android:layout_marginTop="16dp"
+        android:text="@string/request" />
+
 </RelativeLayout>

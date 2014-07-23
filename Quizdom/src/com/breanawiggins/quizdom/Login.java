@@ -28,28 +28,35 @@ public class Login extends Activity implements OnClickListener {
     private EditText userNameEditableField;
     private EditText passwordEditableField;
 
-	 // Progress Dialog
-    private ProgressDialog pDialog;
-
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
     
     //testing from a real server:
-    private static final String LOGIN_URL = "http://quizdom.comoj.com/login.php";
+    private static final String LOGIN_URL = "http://pradeepkeshary.com/webservice/login.php";
     
     //JSON element ids from response of php script:
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
-    //Shared Preferences
-    //SharedPreferences sp = getSharedPreferences(MODE_APPEND, Context.MODE_PRIVATE);	
+    //User session
+    public static UserSessionManager session;
 
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_login);
-
+        
+        //Grab session, if user is already logged in, then redirect to
+        //home screen activity
+        session = new UserSessionManager(getApplicationContext());
+        if (session.isUserLoggedIn()){
+           	Intent i = new Intent(Login.this, HomeScreen.class);
+				startActivity(i);
+				finish();
+        }
+        
+        
         this.userNameEditableField = (EditText) this
                 .findViewById(R.id.editTextUserNameToLogin);
         this.passwordEditableField = (EditText) this
@@ -64,17 +71,7 @@ public class Login extends Activity implements OnClickListener {
         * Before starting background thread Show Progress Dialog
         * */
 		boolean failure = false;
-
-       @Override
-       protected void onPreExecute() {
-//           super.onPreExecute();
-//           pDialog = new ProgressDialog(Login.this);
-//           pDialog.setMessage("Attempting login...");
-//           pDialog.setIndeterminate(false);
-//           pDialog.setCancelable(true);
-//           pDialog.show();
-       }
-
+		
 		@Override
 		protected String doInBackground(String... args) {
 			// TODO Auto-generated method stub
@@ -99,14 +96,11 @@ public class Login extends Activity implements OnClickListener {
                // json success tag
                success = json.getInt(TAG_SUCCESS);
                if (success == 1) {
-            	   SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Login.this);
-            	   Editor edit = sp.edit();
-            	   edit.putString("username", username);
-            	   edit.commit();
+               	session.createUserLoginSession(username);
                	Log.d("Login Successful!", json.toString());
                	Intent i = new Intent(Login.this, HomeScreen.class);
-               	finish();
    				startActivity(i);
+   				finish();
                	return json.getString(TAG_MESSAGE);
                }else{
                	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
@@ -124,12 +118,9 @@ public class Login extends Activity implements OnClickListener {
         * After completing background task Dismiss the progress dialog
         * **/
        protected void onPostExecute(String file_url) {
-           // dismiss the dialog once product deleted
-           //pDialog.dismiss();
            if (file_url != null){
            	Toast.makeText(Login.this, file_url, Toast.LENGTH_LONG).show();
            }
-
        }
     }
     
