@@ -117,8 +117,7 @@ public class FriendsListActivity extends ListActivity {
                 // json success element
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                	Log.d("Friend Added!", json.toString());
-                	new GetFriends().execute();
+                	Log.d("Friend Request Sent!", json.toString());
                 	return json.getString(TAG_MESSAGE);
                 }else{
                 	Log.d("Friend Doesn't Exist!", json.getString(TAG_MESSAGE));
@@ -299,14 +298,12 @@ public class FriendsListActivity extends ListActivity {
 		}
 	}
 
-
-	
 	private void showDeleteFriendDialog(){
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				this);
  
 			// set title
-			alertDialogBuilder.setTitle("Are You Sure You Want to Delete Friend?");
+			alertDialogBuilder.setTitle("Delete Friend?");
  
 			// set dialog message
 			alertDialogBuilder

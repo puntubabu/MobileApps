@@ -1101,14 +1101,12 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f05005c;
+        public static final int action_settings=0x7f05005a;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
         public static final int btnAddFriend=0x7f05003d;
-        public static final int btnApprove=0x7f05005a;
         public static final int btnDeleteFriend=0x7f050058;
-        public static final int btnReject=0x7f05005b;
         public static final int btnRequest=0x7f050045;
         public static final int btnSignOut=0x7f050044;
         public static final int buttonCreate=0x7f050050;

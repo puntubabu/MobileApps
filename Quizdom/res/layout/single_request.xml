@@ -6,28 +6,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp" >
 
         <TextView
             android:id="@+id/tvFriendRequest"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btnApprove"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Y"
-            android:onClick="onClick" />
-
-        <Button
-            android:id="@+id/btnReject"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="N"
-            android:onClick="onClick" />
+            android:textSize="60dp" />
 
     </LinearLayout>
 

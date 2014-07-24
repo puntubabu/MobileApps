@@ -9,25 +9,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.breanawiggins.quizdom.FriendsListActivity.DeleteFriend;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class HomeScreen extends ActionBarActivity {
 
@@ -51,10 +55,16 @@ public class HomeScreen extends ActionBarActivity {
 
     //URL's
     private static final String GET_REQUESTS_URL = "http://pradeepkeshary.com/webservice/getrequests.php";
-    
+    private static final String APPROVE_FRIEND_URL = "http://pradeepkeshary.com/webservice/approvefriend.php";
+
     //JSON Objects
     private JSONParser jsonParser = new JSONParser();
     private JSONArray jarrayFriends = new JSONArray();
+    
+    //Relating to Friend Requests
+    private String friendToAdd;
+    private int positionOfFriend;
+    ListView lvFriendsRequest;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,7 @@ public class HomeScreen extends ActionBarActivity {
         this.setContentView(R.layout.activity_home);
         session = new UserSessionManager(getApplicationContext());
         tvCurrentUser = (TextView)findViewById(R.id.tvCurrentUser);
+        positionOfFriend = -1;
         setCurrentUserText();
         friendRequests = new ArrayList<HashMap<String, String>>();
         
@@ -69,6 +80,9 @@ public class HomeScreen extends ActionBarActivity {
         new GetRequests().execute();
     }
     
+    /*
+     * Display current user's username
+     */
     private void setCurrentUserText(){
         HashMap<String, String> user = new HashMap<String, String>();
         user = session.getUserDetails();
@@ -117,6 +131,15 @@ public class HomeScreen extends ActionBarActivity {
 		}
     }
     
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new GetRequests().execute();
+    }
+    
+    /*
+     * Scale "!" button by increasing and decreasing height and width equally
+     */
     private void animateAlertButton(){
         //If requests exist, animate Alert button
         if (friendRequests.size() > 0){
@@ -142,6 +165,55 @@ public class HomeScreen extends ActionBarActivity {
     	
     }
     
+    class ApproveFriend extends AsyncTask<Void, Void, Boolean>{
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+			approveFriend();
+			return null;
+		}
+    	
+    }
+    
+    /*
+     * approveFriend is run from the class ApproveFriend and is run only
+     * when the user approves a friend from the Friend Requests list view from the Alerts dialog.
+     * 
+     * This method will grab the current username from session, the friendname from selected listview
+     * item, and will send these parameters to the approvefriend.php script.
+     * 
+     * If friend has successfully been added, then a Toast message will display a success message.
+     */
+    private void approveFriend(){
+    	int success;
+    	String username = session.getUserDetails().get("name");
+    	try{
+    		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+    		params.add(new BasicNameValuePair("username", username));
+    		params.add(new BasicNameValuePair("friendname", friendToAdd));
+    		
+    		JSONObject json = jsonParser.makeHttpRequest(APPROVE_FRIEND_URL, "POST", params);
+    		
+    		success = json.getInt(TAG_SUCCESS);
+    		if (success == 1){
+            	runOnUiThread(new Runnable() {
+            		public void run() {
+                    	Toast.makeText(HomeScreen.this, "Friend Added!", Toast.LENGTH_LONG).show();
+            		    }
+            		});
+    		}
+    	}catch(JSONException e){
+    		e.printStackTrace();
+    	}
+    }
+    
+    /*
+     * Will open the requests Dialog, which contains friend requests and incoming
+     * challenges. 
+     * When the user clicks on a Friend or Challenge list item, another dialog will
+     * open asking the user whether they want to add the friend they clicked on or
+     * challenge the user who made the request.
+     */
     private void openRequestsDialog(){
     	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
     		LayoutInflater inflater = getLayoutInflater();
@@ -151,12 +223,24 @@ public class HomeScreen extends ActionBarActivity {
 			//set inflater
 			View requestLayout = inflater.inflate(R.layout.request, null);
 			
-			ListView lvFriendsRequest = (ListView) requestLayout.findViewById(R.id.lvFriends);
+			lvFriendsRequest = (ListView) requestLayout.findViewById(R.id.lvFriends);
 
 			adapter = new SimpleAdapter(this, friendRequests, R.layout.single_request, 
 					new String[] { TAG_FRIEND }, new int[] {R.id.tvFriendRequest});
 			
 			lvFriendsRequest.setAdapter(adapter);
+			
+			lvFriendsRequest.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {				
+					String item = lvFriendsRequest.getItemAtPosition(position).toString();
+					friendToAdd = parseName(item);
+					positionOfFriend = position;
+					showAddFriendDialog();
+				}
+			});
 			
 			alertDialogBuilder.setView(requestLayout);
 			
@@ -177,6 +261,62 @@ public class HomeScreen extends ActionBarActivity {
 				// show it
 				alertDialog.show();
     }
+    
+    /*
+     * This dialog asks the user whether they want to add the user they selected.
+     * If the user selects yes, then ApproveFriend() will be executed, which runs a script
+     * that will add the friend.
+     * 
+     * If the user rejects the request, then RejectFriend() will be run, which deletes the
+     * request (entire row) from the Friends table
+     * 
+     * The user making the friend request can make a friend request again, and the user
+     * who deleted the friend request can make a friend request to the user whom they deleted
+     */
+    private void showAddFriendDialog(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				this);
+ 
+			// set title
+			alertDialogBuilder.setTitle("Add Friend?");
+ 
+			// set dialog message
+			alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton("Add!",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, close
+						// current activity
+						new ApproveFriend().execute();
+						friendToAdd = null;
+						positionOfFriend = -1;
+					}
+				  })
+				.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						friendToAdd = null;
+						positionOfFriend = -1;
+						dialog.cancel();
+					}
+				});
+ 
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				// show it
+				alertDialog.show();
+    }
+
+    /*
+     * The JSON object looks like "{...=asdf}", but we only need the "asdf",
+     * so we parse the JSON object
+     */
+	private String parseName(String name){
+		name = name.substring(name.indexOf("=")+1, name.length()-1);
+		return name;
+	}
     
     public void onClick(View v){
     	switch(v.getId()){
