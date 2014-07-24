@@ -72,6 +72,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/imFriends"
         android:layout_marginTop="16dp"
-        android:text="@string/request" />
+        android:text="@string/request"
+        android:onClick="onClick" />
 
 </RelativeLayout>

@@ -76,5 +76,8 @@
 # onClick res/layout/activity_friends_list.xml #generated:21
 # onClick res/layout/activity_home.xml #generated:37
 # onClick res/layout/activity_home.xml #generated:57
+# onClick res/layout/activity_home.xml #generated:67
+# onClick res/layout/single_request.xml #generated:16
+# onClick res/layout/single_request.xml #generated:24
 -keepclassmembers class * { *** onClick(...); }
 

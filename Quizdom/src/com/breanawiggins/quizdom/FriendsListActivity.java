@@ -168,7 +168,6 @@ public class FriendsListActivity extends ListActivity {
         strUser = user.get("name");
         params.add(new BasicNameValuePair("username", strUser));
         
-        Log.e(TAG, "username is: "+user);
         
 		JSONParser jParser = new JSONParser();
 		JSONObject json = jParser.makeHttpRequest(GET_FRIENDS_URL, "POST", params);

@@ -1101,12 +1101,14 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050054;
+        public static final int action_settings=0x7f05005c;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
         public static final int btnAddFriend=0x7f05003d;
-        public static final int btnDeleteFriend=0x7f050053;
+        public static final int btnApprove=0x7f05005a;
+        public static final int btnDeleteFriend=0x7f050058;
+        public static final int btnReject=0x7f05005b;
         public static final int btnRequest=0x7f050045;
         public static final int btnSignOut=0x7f050044;
         public static final int buttonCreate=0x7f050050;
@@ -1129,7 +1131,7 @@ containing a value of this type.
         public static final int etFriend=0x7f05003e;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
-        public static final int friendname=0x7f050052;
+        public static final int friendname=0x7f050057;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
@@ -1143,6 +1145,8 @@ containing a value of this type.
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;
         public static final int loginbutton=0x7f050046;
+        public static final int lvChalleges=0x7f050056;
+        public static final int lvFriends=0x7f050054;
         public static final int middle=0x7f050012;
         public static final int msgView=0x7f05004b;
         public static final int never=0x7f050009;
@@ -1152,6 +1156,7 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
         public static final int regButton=0x7f05004c;
+        public static final int requestLayout=0x7f050052;
         public static final int search_badge=0x7f050032;
         public static final int search_bar=0x7f050031;
         public static final int search_button=0x7f050033;
@@ -1172,6 +1177,9 @@ containing a value of this type.
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int tvCurrentUser=0x7f050043;
+        public static final int tvFriendRequest=0x7f050059;
+        public static final int tvRequestChallenges=0x7f050055;
+        public static final int tvRequestFriends=0x7f050053;
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
         public static final int withText=0x7f05000c;
@@ -1236,8 +1244,10 @@ containing a value of this type.
         public static final int activity_splash=0x7f03001f;
         public static final int fragment_friends_list=0x7f030020;
         public static final int fragment_main=0x7f030021;
-        public static final int single_friend=0x7f030022;
-        public static final int support_simple_spinner_dropdown_item=0x7f030023;
+        public static final int request=0x7f030022;
+        public static final int single_friend=0x7f030023;
+        public static final int single_request=0x7f030024;
+        public static final int support_simple_spinner_dropdown_item=0x7f030025;
     }
     public static final class menu {
         public static final int friends_list=0x7f0c0000;
@@ -1290,6 +1300,8 @@ containing a value of this type.
         public static final int deleteFriend=0x7f0a0012;
         public static final int hello_world=0x7f0a000e;
         public static final int request=0x7f0a0014;
+        public static final int requestChallenges=0x7f0a0016;
+        public static final int requestFriends=0x7f0a0015;
         public static final int signOut=0x7f0a0013;
         public static final int title_activity_friends_list=0x7f0a0010;
     }

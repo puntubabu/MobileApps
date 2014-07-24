@@ -34,14 +34,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/btnAddFriend"
-        android:ems="10" >
-
+        android:ems="10" 
+        android:hint="Friend Name">
+		
         <requestFocus />
     </EditText>
 
     </RelativeLayout>
-
-
 
 </FrameLayout>
 
