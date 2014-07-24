@@ -134,7 +134,7 @@ public class HomeScreen extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new GetRequests().execute();
+        //new GetRequests().execute();
     }
     
     /*
@@ -202,9 +202,12 @@ public class HomeScreen extends ActionBarActivity {
             		    }
             		});
     		}
+    		
     	}catch(JSONException e){
     		e.printStackTrace();
     	}
+		friendToAdd = null;
+		positionOfFriend = -1;
     }
     
     /*
@@ -288,8 +291,6 @@ public class HomeScreen extends ActionBarActivity {
 						// if this button is clicked, close
 						// current activity
 						new ApproveFriend().execute();
-						friendToAdd = null;
-						positionOfFriend = -1;
 					}
 				  })
 				.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
