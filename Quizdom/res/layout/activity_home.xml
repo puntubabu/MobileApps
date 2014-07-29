@@ -15,13 +15,14 @@
         android:src="@drawable/history" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/ibSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imFriends"
         android:layout_alignTop="@+id/imageButton3"
         android:background="#00000000"
-        android:src="@drawable/settings" />
+        android:src="@drawable/settings" 
+        android:onClick="onClick"/>
 
     <ImageButton
         android:id="@+id/imageButton1"

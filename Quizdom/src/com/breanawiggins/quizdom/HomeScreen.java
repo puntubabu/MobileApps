@@ -9,14 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.breanawiggins.quizdom.FriendsListActivity.DeleteFriend;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +23,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -31,7 +31,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class HomeScreen extends ActionBarActivity {
 
@@ -141,11 +140,16 @@ public class HomeScreen extends ActionBarActivity {
      * Scale "!" button by increasing and decreasing height and width equally
      */
     private void animateAlertButton(){
+        requestButton = (Button) findViewById(R.id.btnRequest);
         //If requests exist, animate Alert button
         if (friendRequests.size() > 0){
             final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
             requestButton = (Button) findViewById(R.id.btnRequest);
             requestButton.startAnimation(animScale);
+        }
+        else{
+        	requestButton.clearAnimation();
+        	requestButton.setEnabled(false);
         }
     }
     
@@ -171,6 +175,11 @@ public class HomeScreen extends ActionBarActivity {
 		protected Boolean doInBackground(Void... arg0) {
 			approveFriend();
 			return null;
+		}
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			new GetRequests().execute();
 		}
     	
     }
@@ -331,6 +340,10 @@ public class HomeScreen extends ActionBarActivity {
     		break;
     	case R.id.btnRequest:
     		openRequestsDialog();
+    		break;
+    	case R.id.ibSettings:
+    		Intent settings = new Intent(HomeScreen.this, SettingsActivity.class);
+    		startActivity(settings);
     		break;
     	}
     }

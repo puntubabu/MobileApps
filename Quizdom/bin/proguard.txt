@@ -46,36 +46,42 @@
 # view res/layout/abc_search_view.xml #generated:85
 -keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
 
-# view AndroidManifest.xml #generated:33
+# view AndroidManifest.xml #generated:53
 -keep class com.breanawiggins.quizdom.FriendsListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:35
+# view AndroidManifest.xml #generated:58
 -keep class com.breanawiggins.quizdom.GCMIntentService { <init>(...); }
 
-# view AndroidManifest.xml #generated:31
+# view AndroidManifest.xml #generated:51
 -keep class com.breanawiggins.quizdom.HomeScreen { <init>(...); }
 
-# view AndroidManifest.xml #generated:29
+# view AndroidManifest.xml #generated:49
 -keep class com.breanawiggins.quizdom.Login { <init>(...); }
 
-# view AndroidManifest.xml #generated:25
+# view AndroidManifest.xml #generated:43
 -keep class com.breanawiggins.quizdom.MainActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:47
+# view AndroidManifest.xml #generated:75
 -keep class com.breanawiggins.quizdom.RegisterActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:27
+# view AndroidManifest.xml #generated:78
+-keep class com.breanawiggins.quizdom.SettingsActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:47
 -keep class com.breanawiggins.quizdom.SignUp { <init>(...); }
 
-# view AndroidManifest.xml #generated:16
+# view AndroidManifest.xml #generated:30
 -keep class com.breanawiggins.quizdom.SplashScreen { <init>(...); }
 
-# view AndroidManifest.xml #generated:36
+# view AndroidManifest.xml #generated:60
 -keep class com.google.android.gcm.GCMBroadcastReceiver { <init>(...); }
 
 # onClick res/layout/activity_friends_list.xml #generated:21
 # onClick res/layout/activity_home.xml #generated:37
 # onClick res/layout/activity_home.xml #generated:57
 # onClick res/layout/activity_home.xml #generated:67
+# onClick res/layout/activity_settings.xml #generated:18
+# onClick res/layout/activity_settings.xml #generated:28
+# onClick res/layout/activity_settings.xml #generated:8
 -keepclassmembers class * { *** onClick(...); }
 

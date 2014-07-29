@@ -58,7 +58,8 @@ public class FriendsListActivity extends ListActivity {
 	
     public static UserSessionManager session;
     private ListAdapter adapter;
-    
+    int success;
+
     String strUser;
     
     //Delete Friend
@@ -141,8 +142,8 @@ public class FriendsListActivity extends ListActivity {
 		}
 		
         protected void onPostExecute(String file_url) {
-            if (file_url != null){
-            	Toast.makeText(FriendsListActivity.this, file_url, Toast.LENGTH_LONG).show();
+            if ((file_url != null) && (success == 0)){
+            	Toast.makeText(FriendsListActivity.this, "Friend Doesn't Exist!", Toast.LENGTH_LONG).show();
             }
         }
 		
@@ -283,6 +284,11 @@ public class FriendsListActivity extends ListActivity {
 		protected Boolean doInBackground(Void... arg0) {
 			deleteFriend();
 			return null;
+		}
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			new GetFriends().execute();
 		}
 	}
 	
