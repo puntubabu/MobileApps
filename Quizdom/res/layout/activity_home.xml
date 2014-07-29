@@ -3,66 +3,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/loginback" >
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton1"
-        android:layout_below="@+id/imageButton1"
-        android:layout_marginTop="28dp"
-        android:background="#00000000"
-        android:src="@drawable/history" />
-
-    <ImageButton
-        android:id="@+id/ibSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imFriends"
-        android:layout_alignTop="@+id/imageButton3"
-        android:background="#00000000"
-        android:src="@drawable/settings" 
-        android:onClick="onClick"/>
-
+    
     <ImageButton
         android:id="@+id/imageButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="21dp"
-        android:layout_marginTop="169dp"
-        android:layout_toLeftOf="@+id/imFriends"
-        android:background="#00000000"
-        android:src="@drawable/challenge" />
-
-    <ImageButton
-        android:id="@+id/imFriends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton3"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"
-        android:background="#00000000"
-        android:src="@drawable/friends" 
-        android:onClick="onClick"/>
+        android:layout_width="100dip"
+        android:layout_height="100dip"
+        android:background="@drawable/user_avi" />
 
     <TextView
         android:id="@+id/tvCurrentUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imFriends"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="33dp" 
-        />
+        android:layout_alignBottom="@+id/imageButton1"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/imageButton1"
+        android:text="User_Name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
 
     <Button
         android:id="@+id/btnSignOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageButton3"
+        android:layout_width="250dip"
+        android:layout_height="48dip"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"
-        android:text="@string/signOut" 
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/answerbutton"
+        android:text="Sign Out"
+        android:textColor="#ffffff" 
+        android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/imFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="48dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/homebuttons"
+        android:text="Friends"
+        android:textColor="#ffffff"
+        android:textSize="32dp"
+        android:textStyle="normal"
+        android:typeface="sans"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/home_history"
+        android:layout_width="wrap_content"
+        android:layout_height="48dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imFriends"
+        android:background="@drawable/homebuttons"
+        android:text="History"
+        android:textColor="#ffffff"
+        android:textSize="32dp"
+        android:textStyle="normal"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/home_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="48dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/home_history"
+        android:background="@drawable/homebuttons"
+        android:text="Settings"
+        android:textColor="#ffffff"
+        android:textSize="32dp"
+        android:textStyle="normal"
+        android:typeface="sans"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/home_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="48dip"
+        android:layout_above="@+id/imFriends"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/homebuttons"
+        android:text="Challenge"
+        android:textColor="#ffffff"
+        android:textSize="32dp"
+        android:textStyle="normal"
+        android:typeface="sans"
         android:onClick="onClick"/>
 
     <Button
@@ -70,10 +94,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/imFriends"
-        android:layout_marginTop="16dp"
-        android:text="@string/request"
-        android:onClick="onClick" />
+        android:layout_alignBottom="@+id/tvCurrentUser"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:text="@string/request" />
 
 </RelativeLayout>
