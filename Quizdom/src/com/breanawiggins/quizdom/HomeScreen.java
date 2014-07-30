@@ -110,6 +110,7 @@ public class HomeScreen extends ActionBarActivity {
 
 			jarrayFriends = json.getJSONArray(TAG_FRIENDS);
 			// looping through all posts according to the json object returned
+			if (jarrayFriends.length() > 0){
 			for (int i = 0; i < jarrayFriends.length(); i++) {
 				JSONObject c = jarrayFriends.getJSONObject(i);
 
@@ -123,6 +124,7 @@ public class HomeScreen extends ActionBarActivity {
 				// adding HashList to ArrayList
 				friendRequests.add(map);
 
+			}
 			}
 
 		} catch (JSONException e) {
